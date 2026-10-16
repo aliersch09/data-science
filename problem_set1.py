@@ -57,14 +57,14 @@ def fruit_pricing():
     #add pear key and value
     fruits["pear"] = 1.15
     #print peach's value
-    print(fruits.get("peach"))
+    print("peach cost: $",fruits.get("peach"))
     #print fruits with prices above $1.25
     for fruit in fruits:
         if fruits[fruit] >= 1.25:
             print(fruit)
     #make total cost variable and print 
     totalCost = (3*fruits.get("apple"))+(2*fruits.get("banana"))+(1*fruits.get("coconut"))
-    print(totalCost)
+    print("total cost: $",totalCost)
 
 if __name__ == "__main__":
     main()
