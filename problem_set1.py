@@ -1,4 +1,3 @@
-
 def main():
     blue()
     blastoff()
@@ -9,8 +8,8 @@ def blue():
     purple = red*12
     print(purple)
 def blastoff():
-    count = input("Give me a number: ")
-    while(count>=0):
+    count = int(input("Give me a number: "))
+    while(count>0):
         print(count)
         count = count-1
     print("blastoff!")
@@ -29,15 +28,13 @@ def candy_shop():
     user_candies.append(firstCandy)
     user_candies.append(secondCandy)
     user_candies.append(thirdCandy)
-    all_candies = []
-    all_candies.append(candies)
-    all_candies.append(user_candies)
-    print(len(all_candies))
+    all_candies = candies + user_candies
     candyLength = len(all_candies)
+    print("len: ", candyLength)
     while(candyLength>0):
         print(all_candies[candyLength-1])
         candyLength = candyLength-1
-    totalCost = candyLength*1.25
+    totalCost = len(all_candies)*1.25
     return(totalCost)
 def fruit_pricing():
     fruits = {
@@ -48,12 +45,12 @@ def fruit_pricing():
         "coconut": 2.80
     }
     fruits["pear"] = 1.15
-    print(fruits.get("pear"))
-    length = len(fruits)
-    while(length>0):
-        if(fruits.get(length-1)>=1.25):
-            print(fruits[length-1])
-    totalCost = (3*.75)+(2*1.25)+(1*2.80)
+    print(fruits.get("peach"))
+    totalCost = 0
+    for fruit in fruits:
+        if fruits[fruit] >= 1.25:
+            print(fruit) 
+    totalCost = (3*fruits.get("apple"))+(2*fruits.get("banana"))+(1*fruits.get("coconut"))
     print(totalCost)
 
 if __name__ == "__main__":
