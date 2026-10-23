@@ -7,8 +7,8 @@ def main():
     run_again = "yes"
     #while the user still wants to use the gradebook
     while (run_again == "yes"):
-        #asks which function to run, and runs the function corresponding to the number they input
-        func_to_run = input("Choose a number: 1) add a grade to a subject 2) print your average for a subject 3) print your grades for a subject 4) print each subject's average 5) print your GPA ")
+        #asks which function to run, and runs the function corresponding to the number they input; asks for user input for parameters if necessary
+        func_to_run = input("Choose a number: \n1) add a grade to a subject \n2) print your average for a subject \n3) print your grades for a subject \n4) print each subject's average \n5) print your GPA \n")
         if (func_to_run=="1"):
             subject = input("What subject is it for? ")
             grade = input("What is the grade? ")
@@ -26,10 +26,14 @@ def main():
         #asks if they want to continue using gradebook, runs again if yes, loop stops if no
         run_again = input("Do you want to run another method? (yes/no)")
 def add_grade(subject,grade):
-    #adds grade parameter to the list corresponding to that subject's key
-    grades[subject].append(grade)
+    #adds grade parameter to the list corresponding to that subject
+    if(subject in grades):
+        grades[subject].append(grade)
+    #creates new subject in dictionary with new grade if not already in dictionary
+    else:
+        grades[subject] = [grade]
 def print_average(subject):
-    #adds the grades in that subject's list together, and divides by total number of grades calculating and printing the average
+    #adds the grades in that subject's list together, and divides by total number of grades, calculating and printing the average
     total = 0
     numGrades = 0
     for grade in grades[subject]:
@@ -38,7 +42,7 @@ def print_average(subject):
     average = total/numGrades
     print(f"{average:.2f}")
 def print_grades(subject):
-    #prints grades in the subject given my the parameter using a for each loop
+    #prints grades in the subject given by the parameter using a for loop
     for grade in grades[subject]:
         print(grade)
 def print_all_averages():
@@ -73,8 +77,8 @@ if __name__ == "__main__":
     main()
 
 #Deliverables
-#1) The general purpose of my program is to provide a database for my user to store 
-# their grades for multiple classes. The program allows the user to easily access 
+#1) The general purpose of my program is to provide a place for my user to store and access
+# a student's grades for multiple classes. The program allows the user to easily determine 
 # the students grades, different averages, and GPA, without having to manually do 
 # the calculations.
 #2) Two possible expected users for my program are students and teachers. 
@@ -85,16 +89,18 @@ if __name__ == "__main__":
 # are aware of how they are doing in their classes, and can help them avoid stress. 
 # It can also prevent students from bothering their teachers about knowing their averages, 
 # because this program provides them easy access to that.
-#3) One non-negotiable of this project is the print average function, since that is the 
-# most important aspect of determining how a student is doing in a class.
+#3) One non-negotiable of this project is the print average function, which prints the 
+# student's averages in a user-specified class. This function is a must have, since it 
+# is the most important aspect of determining how a student is doing in a class.
 # One feature that is nice to have is the get GPA function, since determining a student's 
-# gpa is easy with the print all averages function already accessable. Although, this 
-# function is nice to have, since it provides a quick answer, where you don't have to 
-# think of/calculate the GPA from the averages yourself. 
+# GPA/how they are doing in school is easy with the print all averages or print average 
+# function already available. Although, this function is nice to have, since it provides 
+# a quick, accurate answer, where you don't have to think of/calculate the GPA from the 
+# averages yourself. 
 #4) One additional feature could be a sub dictionary, where you can separate quiz and 
 # test grades, since they are weighted differently. This would add the value of the ability 
 # to calculate averages in classes with a more complex grading system.
-#Another additional feature could be a function that tells you a minimum grade you have 
-# to get on a test to move your average to a specific grade. This would add the value of 
-# students not having to waste their time calculating themselves what grade they have to 
-# get to have a good grade in a class, so they can spend that time studying instead. 
+# Another additional feature could be a function that tells you a minimum grade you have 
+# to get on an assessment to move your average to a specific grade. This would add the value 
+# of students not wasting their time calculating themselves what grade they have to get to 
+# have a grade they want in a class. This way, they can spend that time studying instead. 
