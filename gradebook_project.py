@@ -4,11 +4,10 @@ grades = {
         "english": [95,96,93]
     }
 def main():
-    #add_grade("math",99)
-    #print_average("math")
-    #print_grades("math")
     run_again = "yes"
+    #while the user still wants to use the gradebook
     while (run_again == "yes"):
+        #asks which function to run, and runs the function corresponding to the number they input
         func_to_run = input("Choose a number: 1) add a grade to a subject 2) print your average for a subject 3) print your grades for a subject 4) print each subject's average 5) print your GPA")
         if (func_to_run=="1"):
             subject = input("What subject is it for? ")
@@ -24,29 +23,38 @@ def main():
             print_all_averages()
         if(func_to_run=="5"):
             print("GPA: ",get_GPA())
+        #asks if they want to continue using gradebook, runs again if yes, loop stops if no
         run_again = input("Do you want to run another method? (yes/no)")
 def add_grade(subject,grade):
+    #adds grade parameter to the list corresponding to that subject's key
     grades[subject].append(grade)
 def print_average(subject):
+    #adds the grades in that subject's list together, and divides by total number of grades calculating and printing the average
     total = 0
+    numGrades = 0
     for grade in grades[subject]:
         total=total+grade
-    average = total/3
+        numGrades = numGrades +1
+    average = total/numGrades
     print(average)
 def print_grades(subject):
+    #prints grades in the subject given my the parameter using a for each loop
     for grade in grades[subject]:
         print(grade)
 def print_all_averages():
+    #prints all averages by iterating through the subjects and using the print average function for each one
     for subject in grades:
         print(subject,": ",print_average(subject))
 def get_GPA():
     total = 0
     numGrades = 0
+    #finds the average by adding all the grades in all subjects together, and divides by the total number of grades
     for subject in grades:
             for grade in subject:
                 total = total + grade
                 numGrades=numGrades+1
     average = total/numGrades
+    #according to the average, reuturns the correct gpa value
     if (average>=92.5):
         return 4.0
     if (average<=92.49 and average>=89.5):
