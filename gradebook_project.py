@@ -1,8 +1,16 @@
-grades = {
-        "math": [93,97,95],
-        "history": [91,94,92],
-        "english": [95,96,93]
-    }
+import csv
+grades = { }
+filepath = "/Users/aliersch/Desktop/data-science/data-science/grades.csv"
+try: 
+    with open(filepath,'r') as f:
+        data = csv.reader(f)
+    for row in grades:
+        if row:
+            key = row[0] #first column = key
+            values = row[1:] #py list splice = values
+            grades[key]=values
+except FileNotFoundError:
+    print("file not found")
 def main():
     run_again = "yes"
     #while the user still wants to use the gradebook
@@ -10,14 +18,17 @@ def main():
         #asks which function to run, and runs the function corresponding to the number they input; asks for user input for parameters if necessary
         func_to_run = input("Choose a number: \n1) add a grade to a subject \n2) print your average for a subject \n3) print your grades for a subject \n4) print each subject's average \n5) print your GPA \n")
         if (func_to_run=="1"):
-            subject = input("What subject is it for? ")
+            print_subjects()
+            subject = (input("What subject is it for? ")).lower()
             grade = input("What is the grade? ")
             add_grade(subject,int(grade))
         if (func_to_run=="2"):
-            subject = input("What subject? ")
+            print_subjects()
+            subject = (input("What subject? ")).lower()
             print_average(subject)
         if(func_to_run=="3"):
-            subject = input("What subject? ")
+            print_subjects()
+            subject = (input("What subject? ")).lower()
             print_grades(subject)
         if(func_to_run=="4"):
             print_all_averages()
@@ -25,6 +36,21 @@ def main():
             print("GPA: ",get_GPA())
         #asks if they want to continue using gradebook, runs again if yes, loop stops if no
         run_again = input("Do you want to run another method? (yes/no)")
+        try:
+            data = { }#non empty dictionary
+            with open('output.csv','w',newline="") as file:
+                writer = csv.writer(file)
+                #iterate through keys and values in dataset, write to csv
+                for key, value in data.items():
+                    writer.writerow([key,value])
+            print("successfully stored in csv")
+        except FileNotFoundError:
+            print("no file found")
+def print_subjects():
+    subjects = ""
+    for subject in grades:
+        subjects = subjects+subject+" "
+    print("options: ",subjects," (or a new one)")
 def add_grade(subject,grade):
     #adds grade parameter to the list corresponding to that subject
     if(subject in grades):
@@ -32,6 +58,7 @@ def add_grade(subject,grade):
     #creates new subject in dictionary with new grade if not already in dictionary
     else:
         grades[subject] = [grade]
+    print("added ",str(grade)," to "+subject)
 def print_average(subject):
     #adds the grades in that subject's list together, and divides by total number of grades, calculating and printing the average
     total = 0
@@ -72,35 +99,23 @@ def get_GPA():
         return 1.0
     if(average<65.0):
         return 0
-
+def remove_grade(subject,grade):#removes specific grade in that subject
+    grades[subject].remove(grade)
+    print("removed " , str(grade)," from ",subject)
+def visualize_grades():
+    for subject in grades:
+        graph = ""#empty string for the graph for that subject
+        for grade in grades[subject]:#finds the average for that subject
+            total=total+grade
+            numGrades = numGrades +1
+        average = total/numGrades
+        while(average>=5):#while the average is 5 or above, add symbols to graph correspondingly
+            if(average-50>0):#adds an X for 50 percent
+                graph+="X"
+                average = average-50
+            if(average>5):#adds a * for 5 percent
+                graph+="*"
+                average = average-5
+        print(subject+": "+graph)
 if __name__ == "__main__":
     main()
-
-#Deliverables
-#1) The general purpose of my program is to provide a place for my user to store and access
-# a student's grades for multiple classes. The program allows the user to easily determine 
-# the students grades, different averages, and GPA, without having to manually do 
-# the calculations.
-#2) Two possible expected users for my program are students and teachers. 
-# This program would be helpful for teachers because it can be difficult managing 
-# students grades, and making sure all calculated averages are accurate. This program 
-# provides an organized database of a students grades, and reliable calculated averages/GPAs. 
-# This program would be helpful for students to keep track of their grades, so that they 
-# are aware of how they are doing in their classes, and can help them avoid stress. 
-# It can also prevent students from bothering their teachers about knowing their averages, 
-# because this program provides them easy access to that.
-#3) One non-negotiable of this project is the print average function, which prints the 
-# student's averages in a user-specified class. This function is a must have, since it 
-# is the most important aspect of determining how a student is doing in a class.
-# One feature that is nice to have is the get GPA function, since determining a student's 
-# GPA/how they are doing in school is easy with the print all averages or print average 
-# function already available. Although, this function is nice to have, since it provides 
-# a quick, accurate answer, where you don't have to think of/calculate the GPA from the 
-# averages yourself. 
-#4) One additional feature could be a sub dictionary, where you can separate quiz and 
-# test grades, since they are weighted differently. This would add the value of the ability 
-# to calculate averages in classes with a more complex grading system.
-# Another additional feature could be a function that tells you a minimum grade you have 
-# to get on an assessment to move your average to a specific grade. This would add the value 
-# of students not wasting their time calculating themselves what grade they have to get to 
-# have a grade they want in a class. This way, they can spend that time studying instead. 
