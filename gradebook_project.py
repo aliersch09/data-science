@@ -16,12 +16,12 @@ def main():
     #while the user still wants to use the gradebook
     while (run_again == "yes"):
         #asks which function to run, and runs the function corresponding to the number they input; asks for user input for parameters if necessary
-        func_to_run = input("Choose a number: \n1) add a grade to a subject \n2) print your average for a subject \n3) print your grades for a subject \n4) print each subject's average \n5) print your GPA \n")
+        func_to_run = input("Choose a number: \n1) add a grade to a subject \n2) print your average for a subject \n3) print your grades for a subject \n4) print each subject's average \n5) print your GPA \n6) remove a grade from a subject \n7) show grades as a bar graph \n")
         if (func_to_run=="1"):
             print_subjects()
             subject = (input("What subject is it for? ")).lower()
             grade = input("What is the grade? ")
-            add_grade(subject,int(grade))
+            add_grade(subject,float(grade))
         if (func_to_run=="2"):
             print_subjects()
             subject = (input("What subject? ")).lower()
@@ -34,18 +34,25 @@ def main():
             print_all_averages()
         if(func_to_run=="5"):
             print("GPA: ",get_GPA())
+        if(func_to_run=="6"):
+            print_subjects()
+            subject = (input("What subject is it for? ")).lower()
+            grade = input("What is the grade? ")
+            remove_grade(subject,float(grade))
+        if(func_to_run=="7"):
+            visualize_grades()
         #asks if they want to continue using gradebook, runs again if yes, loop stops if no
         run_again = input("Do you want to run another method? (yes/no)")
-        try:
-            data = { }#non empty dictionary
-            with open('output.csv','w',newline="") as file:
-                writer = csv.writer(file)
-                #iterate through keys and values in dataset, write to csv
-                for key, value in data.items():
-                    writer.writerow([key,value])
-            print("successfully stored in csv")
-        except FileNotFoundError:
-            print("no file found")
+    try:
+        data = { }#non empty dictionary
+        with open('output.csv','w',newline="") as file:
+            writer = csv.writer(file)
+            #iterate through keys and values in dataset, write to csv
+            for key, value in data.items():
+                writer.writerow([key],value)
+        print("successfully stored in csv")
+    except FileNotFoundError:
+        print("no file found")
 def print_subjects():
     subjects = ""
     for subject in grades:
