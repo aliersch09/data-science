@@ -36,8 +36,16 @@ in the methods in our project.
 2. 
 a. To collect our data, we ask the user questions and store their answer in temporary variables, and use our methods to 
 add our data to the dictionary, and then to our csv file. 
-b. 
-c. 
-d. 
-e. 
-3. 
+b. To cache our data, we take the data from the csv file, and store it in a dictionary, and then update and use the data
+through the dictionary throughout the user's use of our program, and only update the csv file at the end of their run of the 
+program. Caching data describes temporarily storing data so that the program can access it faster throughout its execution.
+c. To clean our data, we use separate methods for each function, so that if one function is to be used for more than one 
+purpose, the code does not have to be repeated. We also use comments so that the code is easier to read.
+d. To conclude our data, we can calculate the user's gpa, which is a direct translation to their total average across 
+all classes. This connects all the user's grades, since it takes all the subject's averages into it's calculation.
+e. To convey our findings, we print the calculated results, depending on the user's inputed request. For example, if the
+user uses the print average method through the user interface, then the program prints the user's average in the subject
+that they input. 
+3. A question we can ask from our data is if the user is doing well in school, and given their grades, what colleges are
+reccommended for the user. From our data, we can also ask what the user's strongest subject is, and give the user job or
+career reccommendations based off their strengths.
